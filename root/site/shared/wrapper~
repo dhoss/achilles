@@ -1,0 +1,13 @@
+<%init>
+$title
+</%init>
+<html>
+    <head><title>McHuffy Incorporated</title></head>
+    <body style="background-color: pink">
+
+    % $m->call_next;
+
+    <hr />
+    Copyright 1999 McHuffy Inc.
+    </body>
+    </html>
