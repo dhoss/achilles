@@ -24,7 +24,7 @@
 <li><a href="[% c.uri_for(c.controller('User').action_for('create')) %]">sign up</a></li>
 [%- ELSE -%]
 <li><a href="[% c.uri_for(c.controller('Logout')) %]">logout</a></li> 
-<li><a href="[% c.uri_for(c.controller('Blogs').action_for('add')) %]">write a new blog</a></li>
+<li><a href="[% c.uri_for(c.controller('Blogs').action_for('add')) %]">write</a></li>
 [%- END %]
 </ul>
 </div>
@@ -33,28 +33,26 @@
 <div id="bodyblock" align="right">
 <div id="l-col">
 <div id="menu">
-<ul><h2>Pictures and Products</h2>
 <ul>
-<li><a href="[% c.uri_for(c.controller('Root').action_for('index'))  %]">Home</a></li>
+<li><a href="[% c.uri_for(c.controller('Blogs').action_for('archive'))  %]">Archives</a></li>
 <li><a href="[% c.uri_for(c.controller('Contact')) %]" title="Contact Us">Contact</a></li>
-[% UNLESS c.user_exists %]
-<li><a href="[% c.uri_for('/signup') %]">sign up</a></li>
-[% END %]
+<li>Pages</li>
 
 </ul>
 
 </div>
 </div>
+</div>
 <div class="error">[% error_msg %]</div>
 <div class="status">[% status_msg %]</div>
 <div id="content">
-<p>
+<div>
 [% content %]
-</p>
+</div>
 
 </div>
 </div>
-<div id="footer" align="center">Copyright (c) boyosplace.com</div>
+<div id="footer" align="center">Achilles Blogging Software</div>
 
 </div>
 

@@ -1,0 +1,3 @@
+[% FOREACH entry IN entries %]
+[% entry.author %]
+[% END %]

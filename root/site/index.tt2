@@ -1,3 +1,3 @@
 [% META title="Achilles" %]
 <h2>Viewing blogs</h2>
-[% blogs %]
+[% PROCESS 'blogs/list.tt2', entries=>blogs %]

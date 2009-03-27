@@ -6,7 +6,7 @@ use parent 'Catalyst::Controller';
 
 =head1 NAME
 
-Achilles::Controller::Logout - Catalyst Controller
+BoyosPlace::Controller::Logout - Catalyst Controller
 
 =head1 DESCRIPTION
 
@@ -19,13 +19,21 @@ Catalyst Controller.
 
 =head2 index
 
+    Logout logic
+
 =cut
 
-sub index :Path :Args(0) {
-    my ( $self, $c ) = @_;
+sub index : Path : Args(0) {
+	my ( $self, $c ) = @_;
 
-    $c->response->body('Matched Achilles::Controller::Logout in Logout.');
+	# Clear the user's state
+	$c->logout;
+
+	# Send the user to the starting point
+	$c->flash->{status_msg} = "Logged out!";
+	$c->response->redirect( $c->uri_for('/') );
 }
+
 
 
 =head1 AUTHOR

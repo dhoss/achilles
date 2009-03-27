@@ -14,10 +14,24 @@ use Catalyst::Runtime '5.70';
 #                 directory
 
 use parent qw/Catalyst/;
-use Catalyst qw/-Debug
-                ConfigLoader
-                Static::Simple/;
-our $VERSION = '0.011';
+use Catalyst qw/
+
+  -Debug
+  ConfigLoader
+  Static::Simple
+
+  Authentication
+  Authorization::Roles
+
+  Cache
+
+  Session
+  Session::Store::FastMmap
+  Session::State::Cookie
+
+
+  /;
+our $VERSION = '0.25.01';
 
 # Configure the application.
 #
@@ -30,6 +44,34 @@ our $VERSION = '0.011';
 
 __PACKAGE__->config( name => 'Achilles' );
 
+ __PACKAGE__->config->{'Plugin::Authentication'} = 
+                {  
+                    default => {
+                        credential => {
+                            class => 'Password',
+                            password_field => 'password',
+                            password_type => 'hashed',
+                            password_hash_type => 'SHA1',
+                        },
+                        store => {
+                            class => 'DBIx::Class',
+                            user_model => 'DB::Users',
+                
+                            user_field => 'email',
+                
+                            role_relation =>  'roles',
+                
+                
+                            role_field => 'role',
+                        }
+                    }
+                };
+             
+__PACKAGE__->config( cache => { 
+    backend => { 
+        class =>  "Cache::FastMmap", { share_file => 'root/cache/share' }
+    } 
+});
 # Start the application
 __PACKAGE__->setup();
 
