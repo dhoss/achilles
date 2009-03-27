@@ -4,7 +4,7 @@ use strict;
 use base 'Catalyst::Model::File';
 
 __PACKAGE__->config(
-    root_dir => 'root_dir=root/files',
+    root_dir => 'root/files',
 );
 
 =head1 NAME
