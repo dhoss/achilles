@@ -29,7 +29,10 @@ Achilles::Controller::Root - Root Controller for Achilles
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    my @blogs = $c->model("DB::Blogs")->search({}, { rows => 10 } );
+    my @blogs = $c->model("DB::Blogs")->search(
+        {}, 
+        { rows => 10 } 
+    );
     $c->stash->{blogs} = \@blogs; 
     $c->stash->{template} = "index.tt2";
 }

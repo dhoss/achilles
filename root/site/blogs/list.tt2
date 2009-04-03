@@ -1,3 +1,9 @@
 [% FOREACH entry IN entries %]
-[% entry.author %]
+<div id="entry-container">
+<div id="author">[% entry.author %]</div>
+<div id="created">created on [% entry.created %]</div>
+<div id="content">
+[% entry.content %]
+</div>
+</div>
 [% END %]
