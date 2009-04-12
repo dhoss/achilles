@@ -1,0 +1,40 @@
+---
+# indicator is the field that is used to test for form submission
+indicator: submit
+# Start listing the form elements
+elements:
+    - type: Text
+      name: name
+      label: Title
+      attributes:
+        title: Entry title
+      container_tag: div
+     
+      constraints:
+        type: Callback
+
+    
+    - type: Textarea
+      name: content
+      label: Content
+      attributes:
+        title: Your blog's content
+      container_tag: div
+     
+
+    - type: Submit
+      name: submit
+      value: Save!  
+      container_tag: div
+      
+      
+# Globally ensure that each field only specified one value
+constraints:
+    # The user cannot leave any fields blank
+    - Required    
+    
+filter:
+     # Remove whitespace at both ends
+     - TrimEdges
+     # Escape HTML characters for safety
+     - HTMLEscape    

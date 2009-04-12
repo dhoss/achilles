@@ -2,7 +2,7 @@ package Achilles::Controller::Blogs;
 
 use strict;
 use warnings;
-use parent 'Catalyst::Controller';
+use parent 'Catalyst::Controller::HTML::FormFu';
 
 =head1 NAME
 
@@ -24,13 +24,55 @@ Catalyst Controller.
 sub index :Path :Args(0) {
     my ( $self, $c ) = @_;
 
-    $c->response->body('Matched Achilles::Controller::Blogs in Blogs.');
+    $c->res->redirect( $c->controller('Blogs')->action_for('list') );
 }
 
+=head2 setup_crud_base
+=cut
+
+sub setup_crud_base :Chained('/') PathPart('blog') CaptureArgs(3) {
+    my ($self, $c, $year, $month, $day) = @_;
+    
+  #  $c->stash->{year} = $year 
+ #     unless $c->model('Blogs')->search( { year => $year })->count < 1;
+}
+
+=head2 create
+
+=cut
+
+sub create : Path('new') FormConfig('blogs/create.yml'){
+    my ($self, $c) = @_;    
+    
+    my $form = $c->stash->{form};
+    
+    if ( $form->submitted_and_valid ) {
+    
+        my $entry = $c->model('DB::Blogs')->new_result({});
+        $form->model->update($entry);
+        $c->stash( status_msg => "Post saved");
+    
+    } else {
+    
+        $c->stash( error_msg => "Your form had errors" );
+        $c->detach;
+    
+    }
+
+}
+
+=head2 list
+=cut
+
+#sub
 
 =head1 AUTHOR
 
-Devin Austin,,,
+Devin Austin
+
+dhoss@cpan.org
+
+L<http://www.codedright.net>
 
 =head1 LICENSE
 
