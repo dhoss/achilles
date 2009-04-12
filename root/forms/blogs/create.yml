@@ -4,7 +4,7 @@ indicator: submit
 # Start listing the form elements
 elements:
     - type: Text
-      name: name
+      name: title
       label: Title
       attributes:
         title: Entry title

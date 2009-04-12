@@ -1,1 +1,4 @@
+[% IF form.submitted_and_valid %]
+<div>View your entry <a href="[% c.uri_for('/static', entry.title _ '.html' ); %]">here</a></div>
+[% END %]
 [% form %]

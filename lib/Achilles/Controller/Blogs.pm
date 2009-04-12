@@ -3,7 +3,7 @@ package Achilles::Controller::Blogs;
 use strict;
 use warnings;
 use parent 'Catalyst::Controller::HTML::FormFu';
-
+use DateTime;
 =head1 NAME
 
 Achilles::Controller::Blogs - Catalyst Controller
@@ -48,9 +48,12 @@ sub create : Path('new') FormConfig('blogs/create.yml'){
     
     if ( $form->submitted_and_valid ) {
     
-        my $entry = $c->model('DB::Blogs')->new_result({});
+        my $entry = $c->model('DB::Blogs')->new_result({ created => DateTime->now });
         $form->model->update($entry);
-        $c->stash( status_msg => "Post saved");
+        $c->stash( 
+            status_msg => "Post saved",
+            entry      => $entry
+         );
     
     } else {
     
