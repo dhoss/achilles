@@ -27,21 +27,38 @@ sub index :Path :Args(0) {
     $c->res->redirect( $c->controller('Blogs')->action_for('list') );
 }
 
-=head2 setup_crud_base
+=head2 blog
+
+set up blog crap here
+
 =cut
 
-sub setup_crud_base :Chained('/') PathPart('blog') CaptureArgs(3) {
-    my ($self, $c, $year, $month, $day) = @_;
+sub blog : Chained('/') PathPart('blog') CaptureArgs(0) {
+
+} 
+
+sub load_blog : Chained('blog') PathPart('') CaptureArgs(1) { 
+    my ($self, $c, $id) = @_;
     
-  #  $c->stash->{year} = $year 
- #     unless $c->model('Blogs')->search( { year => $year })->count < 1;
-}
+    my $blog = $c->model('DB::Blog')->find($id);
+    
+    if ( $blog ) {
+        $c->stash(blog => $blog ); 
+    } else {
+        $c->stash( error_msg => "No such blog" );
+        $c->detach;
+    }
+    
+} 
 
-=head2 create
+sub view : Chained('load_blog') PathPart('view') Args(0) {
+    my ($self, $c) = @_;
+    
+    
 
-=cut
+} 
 
-sub create : Path('new') FormConfig('blogs/create.yml'){
+sub create : Chained('blog') PathPart('new') Args(0) FormConfig('blogs/create.yml') {
     my ($self, $c) = @_;    
     
     my $form = $c->stash->{form};
@@ -61,6 +78,7 @@ sub create : Path('new') FormConfig('blogs/create.yml'){
         $c->detach;
     
     }
+
 
 }
 
