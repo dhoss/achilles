@@ -40,10 +40,10 @@ sub blog : Chained('/') PathPart('blog') CaptureArgs(0) {
 sub load_blog : Chained('blog') PathPart('') CaptureArgs(1) { 
     my ($self, $c, $id) = @_;
     
-    my $blog = $c->model('DB::Blog')->find($id);
+    my $entry = $c->model('DB::Blog')->find($id);
     
-    if ( $blog ) {
-        $c->stash(blog => $blog ); 
+    if ( $entry ) {
+        $c->stash(entry => $entry ); 
     } else {
         $c->stash( error_msg => "No such blog" );
         $c->detach;

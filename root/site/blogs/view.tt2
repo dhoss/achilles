@@ -1,0 +1,10 @@
+<h2>[% entry.title %]</h2>
+<div id="created">on [% entry.created.ymd %]</div>
+<div id="content">
+[% entry.content %]
+</div>
+<div id="comments">
+<a href="[% c.uri_for( c.controller('Blogs').action_for('comment'), entry.blogid) %]">([% entry.reply_count %]) replies</a>
+</div>
+
+[%# INCLUDE 'blogs/list_comments' %]
