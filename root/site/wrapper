@@ -15,20 +15,22 @@
 <img src="[% c.uri_for('static', 'images', 'logo.png') %]" />
 </div>
 
+[% BLOCK menuitem %]
+  <ul [%- IF menu.class %]class="[% menu.class %]"[% END %]>
+  [% FOREACH item = menu.item %]
+  <li [% IF item.active %]class="active"[% END %]>
+    <a href="[% item.target %]">[% item.label %]</a>
+    [% IF item.item %]
+    [% PROCESS menuitem
+      menu = item
+    %]
+    [% END %]
+  </li>
+  [% END %]
+  </ul>
+[% END %]
+[% PROCESS menuitem %]
 
-<div id="vdividermenu">
-<ul>
-<li><a href="[% c.uri_for(c.controller('Root').action_for('index')) %]">home</a></li>
-[%- UNLESS c.user_exists %]
-<li><a href="[% c.uri_for(c.controller('Login').action_for('index')) %]">login</a></li> 
-<li><a href="[% c.uri_for(c.controller('User').action_for('create')) %]">sign up</a></li>
-[%- ELSE -%]
-<li><a href="[% c.uri_for(c.controller('Logout')) %]">logout</a></li> 
-<li><a href="[% c.uri_for(c.controller('Blogs').action_for('add')) %]">write</a></li>
-[%- END %]
-</ul>
-</div>
-</div>
 
 <div id="bodyblock" align="right">
 <div id="l-col">

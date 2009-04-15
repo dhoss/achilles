@@ -1,0 +1,10 @@
+<menu>
+  <item>
+    <label>Home</label>
+    <location></location>
+  </item>
+  <item>
+    <label>Create</label>
+    <location>blog/create</location>
+  </item>
+</menu>
